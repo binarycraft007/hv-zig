@@ -70,6 +70,7 @@ pub fn build(b: *std.Build) void {
     lib.addConfigHeader(config_h);
     lib.installConfigHeader(config_h, .{});
     lib.addIncludePath(.{ .path = "include" });
+    lib.installHeadersDirectory("include", "");
     inline for (hv_inc_paths) |path| {
         lib.addIncludePath(.{ .path = path });
         lib.installHeadersDirectoryOptions(.{
@@ -80,6 +81,16 @@ pub fn build(b: *std.Build) void {
         });
     }
     b.installArtifact(lib);
+
+    const exe = b.addExecutable(.{
+        .name = "echo_test",
+        .root_source_file = .{ .path = "src/main.zig" },
+        .target = target,
+        .optimize = optimize,
+    });
+    exe.addIncludePath(winpthreads_dep.path("include"));
+    exe.linkLibrary(lib);
+    b.installArtifact(exe);
 
     const main_tests = b.addTest(.{
         .root_source_file = .{ .path = "src/main.zig" },
@@ -139,4 +150,6 @@ const hv_src_files = [_][]const u8{
     "src/event/unpack.c",
     "src/mqtt/mqtt_protocol.c",
     "src/mqtt/mqtt_client.c",
+    "src/ssl/hssl.c",
+    "src/ssl/nossl.c",
 };

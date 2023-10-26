@@ -6,7 +6,7 @@
 #include "hevent.h"
 
 #ifdef OS_WIN
-#include "wepoll/wepoll.h"
+#include "wepoll.h"
 #else
 #include <sys/epoll.h>
 #define epoll_close(epfd) close(epfd)
