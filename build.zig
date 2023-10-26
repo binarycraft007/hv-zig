@@ -7,10 +7,6 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    const winpthreads_dep = b.dependency("winpthreads", .{
-        .target = target,
-        .optimize = optimize,
-    });
     const lib = b.addStaticLibrary(.{
         .name = "hv",
         .target = target,
@@ -33,7 +29,7 @@ pub fn build(b: *std.Build) void {
         .HAVE_SYS_STAT_H = 1,
         .HAVE_SYS_TIME_H = 1,
         .HAVE_FCNTL_H = 1,
-        .HAVE_PTHREAD_H = 1,
+        .HAVE_PTHREAD_H = @intFromBool(t.os.tag != .windows),
         .HAVE_ENDIAN_H = 1,
         .HAVE_SYS_ENDIAN_H = 1,
         .HAVE_GETTID = @intFromBool(t.os.tag == .linux),
@@ -56,7 +52,6 @@ pub fn build(b: *std.Build) void {
         lib.defineCMacro("CRT_SECURE_NO_WARNINGS", "");
         lib.defineCMacro("_WIN32_WINNT", "0x0600");
         lib.linkLibrary(wepoll_dep.artifact("wepoll"));
-        lib.linkLibrary(winpthreads_dep.artifact("winpthreads"));
         lib.linkSystemLibrary("secur32");
         lib.linkSystemLibrary("crypt32");
         lib.linkSystemLibrary("winmm");
@@ -88,7 +83,6 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    exe.addIncludePath(winpthreads_dep.path("include"));
     exe.linkLibrary(lib);
     b.installArtifact(exe);
 
