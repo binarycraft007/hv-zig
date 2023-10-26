@@ -50,7 +50,6 @@ pub fn build(b: *std.Build) void {
         .HAVE_SETPROCTITLE = 0,
 
         .WITH_WEPOLL = @intFromBool(t.os.tag == .windows),
-        .WITH_KCP = 1,
     });
     if (t.os.tag == .windows) {
         lib.defineCMacro("WIN32_LEAN_AND_MEAN", "");
@@ -70,8 +69,15 @@ pub fn build(b: *std.Build) void {
     }
     lib.addConfigHeader(config_h);
     lib.installConfigHeader(config_h, .{});
+    lib.addIncludePath(.{ .path = "include" });
     inline for (hv_inc_paths) |path| {
         lib.addIncludePath(.{ .path = path });
+        lib.installHeadersDirectoryOptions(.{
+            .source_dir = .{ .path = path },
+            .install_dir = .header,
+            .install_subdir = "",
+            .include_extensions = &.{".h"},
+        });
     }
     b.installArtifact(lib);
 
@@ -87,7 +93,6 @@ pub fn build(b: *std.Build) void {
 }
 
 const hv_inc_paths = [_][]const u8{
-    "src",
     "src/util",
     "src/base",
     "src/protocol",
@@ -95,7 +100,6 @@ const hv_inc_paths = [_][]const u8{
     "src/event",
     "src/mqtt",
     "src/ssl",
-    "include",
 };
 
 const hv_src_files = [_][]const u8{
@@ -130,8 +134,6 @@ const hv_src_files = [_][]const u8{
     "src/event/nlog.c",
     "src/event/rudp.c",
     "src/event/nio.c",
-    "src/event/kcp/hkcp.c",
-    "src/event/kcp/ikcp.c",
     "src/event/hevent.c",
     "src/event/poll.c",
     "src/event/unpack.c",
