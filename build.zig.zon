@@ -1,0 +1,19 @@
+.{
+    .name = "hv",
+    .version = "0.0.1",
+    .paths = .{
+        "src",
+        "build.zig",
+        "build.zig.zon",
+    },
+    .dependencies = .{
+        .winpthreads = .{
+            .url = "git+https://codeberg.org/allyourcodebase/winpthreads#2f5cf6464d1553f3c1d699c7d2048cdcdbdaec05",
+            .hash = "1220e67dc9563fc36abc1f267fc1bc965f2a090304de450ac6acde2e3490d93c485d",
+        },
+        .wepoll = .{
+            .url = "git+https://codeberg.org/bytecraft/wepoll#a95e6260504a07aa9cfdd6bf34db2745dfff6573",
+            .hash = "1220e467ec8d7864e1a065d6b7e5c9dba21a98971982d91fcbe0238a74ab7d326740",
+        },
+    },
+}
