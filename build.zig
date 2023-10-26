@@ -23,7 +23,7 @@ pub fn build(b: *std.Build) void {
         .flags = &.{ "-std=gnu99", "-Wno-int-conversion" },
     });
     const config_h = b.addConfigHeader(.{
-        .style = .{ .cmake = .{ .path = "hconfig.h.in" } },
+        .style = .{ .cmake = .{ .path = "include/hconfig.h.in" } },
         .include_path = "hconfig.h",
     }, .{
         .HAVE_STDBOOL_H = 1,
@@ -95,6 +95,7 @@ const hv_inc_paths = [_][]const u8{
     "src/event",
     "src/mqtt",
     "src/ssl",
+    "include",
 };
 
 const hv_src_files = [_][]const u8{

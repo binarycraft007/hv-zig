@@ -8,8 +8,8 @@
     },
     .dependencies = .{
         .winpthreads = .{
-            .url = "git+https://codeberg.org/allyourcodebase/winpthreads#2f5cf6464d1553f3c1d699c7d2048cdcdbdaec05",
-            .hash = "1220e67dc9563fc36abc1f267fc1bc965f2a090304de450ac6acde2e3490d93c485d",
+            .url = "git+https://codeberg.org/allyourcodebase/winpthreads#54a1c16fd7b7c39216476f87006ad0c8d32ed92a",
+            .hash = "1220b39ae1ec55fc4dda16e83ae4237b3ef9b7926a29c65f8af8fe9c3563bc7f3c71",
         },
         .wepoll = .{
             .url = "git+https://codeberg.org/bytecraft/wepoll#a95e6260504a07aa9cfdd6bf34db2745dfff6573",
