@@ -16,7 +16,7 @@ pub fn build(b: *std.Build) void {
     lib.linkLibC();
     lib.addCSourceFiles(.{
         .files = &hv_src_files,
-        .flags = &.{ "-std=gnu99", "-Wno-int-conversion" },
+        .flags = &.{ "-std=gnu11", "-Wno-int-conversion" },
     });
     const config_h = b.addConfigHeader(.{
         .style = .{ .cmake = .{ .path = "include/hconfig.h.in" } },
@@ -37,7 +37,7 @@ pub fn build(b: *std.Build) void {
         .HAVE_STRLCAT = 1,
         .HAVE_CLOCK_GETTIME = 1,
         .HAVE_GETTIMEOFDAY = 1,
-        .HAVE_PTHREAD_SPIN_LOCK = 1,
+        .HAVE_PTHREAD_SPIN_LOCK = @intFromBool(t.os.tag != .windows),
         .HAVE_PTHREAD_MUTEX_TIMEDLOCK = @intFromBool(t.os.tag == .linux),
         .HAVE_SEM_TIMEDWAIT = @intFromBool(t.os.tag == .linux),
         .HAVE_PIPE = 1,
