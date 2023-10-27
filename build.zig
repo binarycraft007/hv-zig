@@ -7,14 +7,18 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    const mbedtls_dep = b.dependency("mbedtls", .{
+        .target = target,
+        .optimize = optimize,
+    });
     const lib = b.addStaticLibrary(.{
         .name = "hv",
-        .root_source_file = .{ .path = "src/ssl/stdssl.zig" },
         .target = target,
         .optimize = optimize,
     });
     const t = lib.target_info.target;
     lib.linkLibC();
+    lib.linkLibrary(mbedtls_dep.artifact("mbedtls"));
     lib.addCSourceFiles(.{
         .files = &hv_src_files,
         .flags = &.{ "-std=gnu11", "-Wno-int-conversion" },
@@ -47,6 +51,8 @@ pub fn build(b: *std.Build) void {
         .HAVE_SETPROCTITLE = 0,
 
         .ENABLE_UDS = 1,
+        .WITH_MBEDTLS = @intFromBool(t.os.tag != .windows),
+        .WITH_WINTLS = @intFromBool(t.os.tag == .windows),
         .WITH_WEPOLL = @intFromBool(t.os.tag == .windows),
     });
     if (t.os.tag == .windows) {
@@ -147,4 +153,6 @@ const hv_src_files = [_][]const u8{
     "src/mqtt/mqtt_protocol.c",
     "src/mqtt/mqtt_client.c",
     "src/ssl/hssl.c",
+    "src/ssl/mbedtls.c",
+    "src/ssl/wintls.c",
 };
