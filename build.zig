@@ -9,6 +9,7 @@ pub fn build(b: *std.Build) void {
     });
     const lib = b.addStaticLibrary(.{
         .name = "hv",
+        .root_source_file = .{ .path = "src/ssl/stdssl.zig" },
         .target = target,
         .optimize = optimize,
     });
@@ -145,5 +146,4 @@ const hv_src_files = [_][]const u8{
     "src/mqtt/mqtt_protocol.c",
     "src/mqtt/mqtt_client.c",
     "src/ssl/hssl.c",
-    "src/ssl/nossl.c",
 };
