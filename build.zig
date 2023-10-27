@@ -46,6 +46,7 @@ pub fn build(b: *std.Build) void {
         .HAVE_EVENTFD = @intFromBool(t.os.tag == .linux),
         .HAVE_SETPROCTITLE = 0,
 
+        .ENABLE_UDS = 1,
         .WITH_WEPOLL = @intFromBool(t.os.tag == .windows),
     });
     if (t.os.tag == .windows) {
