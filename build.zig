@@ -73,7 +73,13 @@ pub fn build(b: *std.Build) void {
     lib.addConfigHeader(config_h);
     lib.installConfigHeader(config_h, .{});
     lib.addIncludePath(.{ .path = "include" });
-    lib.installHeadersDirectory("include", "");
+    lib.installHeadersDirectoryOptions(.{
+        .source_dir = .{ .path = "include" },
+        .install_dir = .header,
+        .install_subdir = "",
+        .include_extensions = &.{".h"},
+        .exclude_extensions = &.{".in"},
+    });
     inline for (hv_inc_paths) |path| {
         lib.addIncludePath(.{ .path = path });
         lib.installHeadersDirectoryOptions(.{
@@ -81,6 +87,7 @@ pub fn build(b: *std.Build) void {
             .install_dir = .header,
             .install_subdir = "",
             .include_extensions = &.{".h"},
+            .exclude_extensions = &.{".in"},
         });
     }
     b.installArtifact(lib);
