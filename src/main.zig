@@ -1,5 +1,5 @@
 const std = @import("std");
-const c = @cImport(@cInclude("hloop.h"));
+const c = @import("c.zig");
 
 fn on_close(io: ?*c.hio_t) callconv(.C) void {
     _ = io;
