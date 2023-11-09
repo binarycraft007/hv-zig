@@ -115,7 +115,6 @@ pub fn build(b: *std.Build) void {
 const hv_inc_paths = [_][]const u8{
     "src/util",
     "src/base",
-    "src/protocol",
     "src/http",
     "src/event",
     "src/mqtt",
@@ -134,10 +133,6 @@ const hv_src_files = [_][]const u8{
     "src/base/rbtree.c",
     "src/base/hlog.c",
     "src/base/herr.c",
-    "src/protocol/icmp.c",
-    "src/protocol/smtp.c",
-    "src/protocol/dns.c",
-    "src/protocol/ftp.c",
     "src/http/httpdef.c",
     "src/http/multipart_parser.c",
     "src/http/websocket_parser.c",

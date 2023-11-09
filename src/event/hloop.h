@@ -53,9 +53,9 @@ typedef enum {
 #define HEVENT_PRIORITY_INDEX(priority) (priority-HEVENT_LOWEST_PRIORITY)
 
 #define HEVENT_FLAGS        \
-    unsigned    destroy :1; \
-    unsigned    active  :1; \
-    unsigned    pending :1;
+    unsigned    destroy; \
+    unsigned    active; \
+    unsigned    pending;
 
 #define HEVENT_FIELDS                   \
     hloop_t*            loop;           \

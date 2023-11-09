@@ -102,19 +102,19 @@ QUEUE_DECL(offset_buf_t, write_queue);
 struct hio_s {
     HEVENT_FIELDS
     // flags
-    unsigned    ready       :1;
-    unsigned    connected   :1;
-    unsigned    closed      :1;
-    unsigned    accept      :1;
-    unsigned    connect     :1;
-    unsigned    connectex   :1; // for ConnectEx/DisconnectEx
-    unsigned    recv        :1;
-    unsigned    send        :1;
-    unsigned    recvfrom    :1;
-    unsigned    sendto      :1;
-    unsigned    close       :1;
-    unsigned    alloced_readbuf :1; // for hio_alloc_readbuf
-    unsigned    alloced_ssl_ctx :1; // for hio_new_ssl_ctx
+    unsigned    ready;
+    unsigned    connected;
+    unsigned    closed;
+    unsigned    accept;
+    unsigned    connect;
+    unsigned    connectex; // for ConnectEx/DisconnectEx
+    unsigned    recv;
+    unsigned    send;
+    unsigned    recvfrom;
+    unsigned    sendto;
+    unsigned    close;
+    unsigned    alloced_readbuf; // for hio_alloc_readbuf
+    unsigned    alloced_ssl_ctx; // for hio_new_ssl_ctx
 // public:
     hio_type_e  io_type;
     uint32_t    id; // fd cannot be used as unique identifier, so we provide an id
