@@ -15,5 +15,9 @@
             .url = "git+https://codeberg.org/bytecraft/wepoll#a95e6260504a07aa9cfdd6bf34db2745dfff6573",
             .hash = "1220e467ec8d7864e1a065d6b7e5c9dba21a98971982d91fcbe0238a74ab7d326740",
         },
+        .zigdig = .{
+            .url = "git+https://github.com/binarycraft007/zigdig#0c1ef6c6dcfe03bfa1d1ea25effe1fe07ea130fc",
+            .hash = "1220dfdb3089dfe9a4e4bc1226fcff08d91d0c0853f287d98d8b81270da251790331",
+        },
     },
 }
